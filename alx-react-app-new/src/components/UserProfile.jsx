@@ -1,4 +1,6 @@
 // src/components/UserProfile.jsx
+import React from 'react'
+
 const UserProfile = (props) => {
     return (
         <div style={{ border: '1px solid gray', padding: '10px', margin: '10px' }}>
