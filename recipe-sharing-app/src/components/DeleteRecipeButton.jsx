@@ -1,13 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import useRecipeStore from "./recipeStore.js";
 
-export default function DeleteRecipeButton({ recipeId }) {
+export default function DeleteRecipeButton({ Id }) {
     const deleteRecipe = useRecipeStore((state) => state.deleteRecipe);
     const navigate = useNavigate();
 
     const handleDelete = () => {
         if (window.confirm("Are you sure you want to delete this recipe?")) {
-            deleteRecipe(recipeId);
+            deleteRecipe(Id);
             navigate("/");
         }
     };

@@ -8,19 +8,27 @@ const useRecipeStore = create((set) => ({
     filteredRecipes: [],
 
     addRecipe: (newRecipe) => 
-        set((state) => ({
-            recipes: [...state.recipes, newRecipe],
-            filteredRecipes: [...state.recipes, newRecipe]
-        })),
+        set((state) => {
+            const updatedRecipes = [...state.recipes, newRecipe];
+            return {
+                recipes: updatedRecipes,
+                filteredRecipes: updatedRecipes.filter((recipe) => 
+                    (recipe.title || '').toLowerCase().includes(state.searchTerm.toLowerCase())
+                ),
+            };
+        }),
             
     deleteRecipe: (id) => 
-        set((state) => ({
-            recipes: state.recipes.filter((recipe) => recipe.id !== id),
-            filteredRecipes: state.recipes.filter(
-                (recipe) => recipe.id !== id
-            ),
-        })),
-    
+        set((state) => {
+            const updatedRecipes = state.recipes.filter((recipe) => recipe.id !== id);
+            return {
+                recipes: updatedRecipes,
+                filteredRecipes: updatedRecipes.filter((recipe) => 
+                    (recipe.title || '').toLowerCase().includes(state.searchTerm.toLowerCase())
+                ),
+            };
+        }),
+
     addFavorite: (recipeId) => 
         set((state) => ({
             favorites: [...state.favorites, recipeId]
@@ -32,16 +40,10 @@ const useRecipeStore = create((set) => ({
         })),
 
     setSearchTerm: (term) => 
-        set(() => ({
-            searchTerm: term,
-        })),
-
-    filterRecipes: () => 
         set((state) => ({
-            filteredRecipes: state.recipes.filter((recipe) =>
-                recipe.title
-                    .toLowerCase()
-                    .includes(state.searchTerm.toLowerCase())
+            searchTerm: term,
+            filteredRecipes: state.recipes.filter((recipe) => 
+                recipe.title.toLowerCase().includes(term.toLowerCase())
             ),
         })),
 

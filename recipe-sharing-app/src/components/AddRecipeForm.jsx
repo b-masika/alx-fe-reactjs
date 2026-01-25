@@ -18,8 +18,8 @@ export default function AddRecipeForm() {
         // Create new recipe object
         const newRecipe = {
             id: Date.now(),
-            title,
-            description
+            title: title || "Untitled Recipe",
+            description: description || ""
         };
 
         // Add recipe to the store

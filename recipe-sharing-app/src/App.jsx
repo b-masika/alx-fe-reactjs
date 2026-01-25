@@ -3,7 +3,8 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import AddRecipeForm from './components/AddRecipeForm.jsx';
 import RecipeList from './components/RecipeList.jsx';
-import RecipeDetail from './components/RecipeDetails.jsx';
+import RecipeDetails from './components/RecipeDetails.jsx';
+import SearchBar from './components/SearchBar.jsx';
 
 export default function App() {
   return (
@@ -15,11 +16,12 @@ export default function App() {
           <Route path='/' element={
             <>
               <AddRecipeForm />
+              <SearchBar />
               <RecipeList />
             </>
           } />
 
-          <Route path="/recipe/:id" element={<RecipeDetail />} />
+          <Route path="/recipe/:id" element={<RecipeDetails />} />
         </Routes>
       </div>
     </Router>

@@ -1,14 +1,18 @@
 import React from "react";
 import useRecipeStore from "./recipeStore.js";
 
-const SearchBar = () => {
+export default function SearchBar () {
     const setSearchTerm = useRecipeStore((state) => state.setSearchTerm);
+
+    const handleChange = (e) => {
+        setSearchTerm(e.target.value);
+    }
 
     return (
         <input
             type="text"
             placeholder="Search recipes..."
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={handleChange}
             style={{
                 padding: "10px",
                 margin: "10px",
@@ -18,5 +22,3 @@ const SearchBar = () => {
         />
     );
 }
-
-export default SearchBar;

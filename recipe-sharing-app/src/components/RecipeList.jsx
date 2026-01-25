@@ -1,15 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import useRecipeStore from "./recipeStore.js";
 import EditRecipeForm from "./EditRecipeForm.jsx";
 import DeleteRecipeButton from "./DeleteRecipeButton.jsx";
 
 
 export default function RecipeList() {
-    const recipes = useRecipeStore((state) => state.recipes);
+    const recipes = useRecipeStore((state) => state.searchTerm ? state.filteredRecipes : state.recipes);
     const favorites = useRecipeStore((state) => state.favorites);
     const addFavorite = useRecipeStore((state) => state.addFavorite);
     const removeFavorite = useRecipeStore((state) => state.removeFavorite);
-    const removeRecipe = useRecipeStore((state) => state.removeRecipe);
+    const deleteRecipe = useRecipeStore((state) => state.removeRecipe);
 
     const toggleFavorite = (recipeId) => {
         if (favorites.includes(recipeId)) {
@@ -20,7 +21,7 @@ export default function RecipeList() {
     };
 
     if (recipes.length === 0) {
-        return <p>No recipes yet. Please add some!</p>;
+        return <p>No recipes yet.</p>;
     }
 
     return (
@@ -28,8 +29,11 @@ export default function RecipeList() {
             <h2>Recipe List</h2>
             {recipes.map((recipe) => (
                 <div key={recipe.id} style={{ marginBottom: '1rem' }}>
-                    <h3>{recipe.title}</h3>
+                    <Link to={`/recipe/${recipe.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+                        <h3>{recipe.title}</h3>
+                    </Link>
                     <p>{recipe.description}</p>
+
                     <button 
                         onClick={() => toggleFavorite(recipe.id)}
                         style={{
@@ -43,6 +47,9 @@ export default function RecipeList() {
                     >
                         {favorites.includes(recipe.id) ? 'Unfavorite' : 'Favorite'}
                     </button>
+
+                    <EditRecipeForm recipe={recipe} />
+                    <DeleteRecipeButton recipeId={recipe.id} />
                 </div>
             ))}
         </div>
