@@ -8,7 +8,7 @@ export default function EditRecipeForm({ recipe }) {
     const [editing, setEditing] = useState(false);
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        event.preventDefault();
 
         if (!title.trim()) {
             alert("Recipe title cannot be empty");
