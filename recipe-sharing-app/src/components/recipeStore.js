@@ -7,9 +7,28 @@ const useRecipeStore = create((set) => ({
     searchTerm: '',
     filteredRecipes: [],
 
+    setRecipes: (recipes) => 
+        set((state) => ({
+            recipes: recipes,
+            filteredRecipes: recipes,
+        })),
+
     addRecipe: (newRecipe) => 
         set((state) => {
             const updatedRecipes = [...state.recipes, newRecipe];
+            return {
+                recipes: updatedRecipes,
+                filteredRecipes: updatedRecipes.filter((recipe) => 
+                    (recipe.title || '').toLowerCase().includes(state.searchTerm.toLowerCase())
+                ),
+            };
+        }),
+
+    updateRecipe: (updatedRecipe) => 
+        set((state) => {
+            const updatedRecipes = state.recipes.map((recipe) =>
+                recipe.id === updatedRecipe.id ? updatedRecipe : recipe
+            );
             return {
                 recipes: updatedRecipes,
                 filteredRecipes: updatedRecipes.filter((recipe) => 
