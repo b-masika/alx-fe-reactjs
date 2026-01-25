@@ -1,9 +1,11 @@
 import React from 'react';
-import useRecipeStore from './recipeStore.jsx';
+import { useParams } from 'react-router-dom';
+import useRecipeStore from './recipeStore.js';
 import EditRecipeForm from './EditRecipeForm.jsx';
 import DeleteRecipeButton from './DeleteRecipeButton.jsx';
 
 export default function RecipeDetails({ recipeId }) {
+    const { id } = useParams();
     const recipe = useRecipeStore((state) => 
         state.recipes.find((r) => r.id === recipeId)
     );

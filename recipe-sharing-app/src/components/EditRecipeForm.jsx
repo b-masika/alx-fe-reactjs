@@ -15,11 +15,13 @@ export default function EditRecipeForm({ recipe }) {
             return;
         }  
 
-        updatedRecipe = {
+        const updatedRecipe = {
             id: recipe.id,
             title,
             description
         };
+
+        updateRecipe(recipe.id, updatedRecipe);
 
         setEditing(false);
     };
