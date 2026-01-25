@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import AddRecipeForm from './components/AddRecipeForm';
-import RecipeList from './components/RecipeList';
+import AddRecipeForm from './components/AddRecipeForm.jsx';
+import RecipeList from './components/RecipeList.jsx';
 
 export default function App() {
   return (
@@ -9,7 +9,7 @@ export default function App() {
         <h1 style={{ textAlign: 'center', marginBottom: '2rem' }}>Recipe Sharing App</h1>
 
         <AddRecipeForm />
-        
+
         <RecipeList />
       </div>
   );
