@@ -26,8 +26,11 @@ const Search = () => {
         page: 1});
 
       setUsers(data.items);
+      if (data.items.length === 0) {
+        setError("Looks like we can't find the user");
+      }
     } catch (err) {
-      setError("No users found");
+      setError("Looks like we can't find the user");
     } finally {
       setLoading(false);
     }
