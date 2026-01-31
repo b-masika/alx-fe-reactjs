@@ -1,22 +1,28 @@
 import { useState } from "react";
-import githubApi from "../services/githubApi.js";
+import { fetchUserData } from "../services/githubService.js";
 
 const Search = () => {
   const [username, setUsername] = useState("");
-  const [userData, setUserData] = useState(null);
+  const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSearch = async (e) => {
     e.preventDefault();
+
+    if (!username.trim()) return;
+
+    setLoading(true);
     setError("");
     setUser(null);
 
     try {
-      const response = await githubApi.get(`/users/${username}`);
-      setUse(data);
-      setError(null);
-    } catch {
-      setError("User not found");
+      const response = await fetchUserData(username);
+      setUser(response);
+    } catch (err) {
+      setError("Looks like we cant find the user");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -30,15 +36,26 @@ const Search = () => {
                 onChange={(e) => setUsername(e.target.value)}
                 className="border p-2 flex-1"
             />
-            <button className="bg-black text-white px-4">Search</button>
+            <button className="bg-black text-white px-4 rounded">
+                Search
+            </button>
         </form>
 
+        {loading && <p className="mb-4">Loading...</p>}
         {error && <p className="text-red-500 mb-4">{error}</p>}
-        {userData && (
+        
+        {user && (
             <div className="border p-4 rounded">
-                <img src="user.avatar_url" alt="" className="w-20 rounded-full" />
+                <img src={user.avatar_url} alt={`${user.login}'s avatar`} className="w-20 h-20 rounded-full" />
                 <h2 className="font-bold">{user.login}</h2>
-                <a href={user.html_url} target="blank">View Profile</a>
+                <p>Public Repos: {user.public_repos}</p>
+                <a href={user.html_url}
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue-600 underline"
+                >
+                    View Profile
+                </a>
             </div>
         )}
     </div>
