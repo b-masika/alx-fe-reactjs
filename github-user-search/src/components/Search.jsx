@@ -6,6 +6,9 @@ const Search = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [location, setLocation] = useState("");
+  const [minRepos, setMinRepos] = useState("");
+  const [query, setQuery] = useState("");
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -28,15 +31,30 @@ const Search = () => {
 
   return (
     <div>
-        <form onSubmit={handleSearch} className="flex gap-2 mb-4">
+        <form onSubmit={handleSearch} className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-6">
             <input
                 type="text"
-                placeholder="Github username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="border p-2 flex-1"
+                placeholder="Search keyword (e.g. frontend)"
+                value={value}
+                onChange={(e) => setQuery(e.target.value)}
+                className="border p-2 rounded"
             />
-            <button className="bg-black text-white px-4 rounded">
+
+            <input type="text"
+            placeholder="Location (e.g. Nairobi)"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="border p-2 rounded"
+            />
+            <input type="text"
+            placeholder="Min repos"
+            value={minRepos}
+            onChange={(e) => setMinRepos(e.target.value)}
+            className="border p-2 rounded"
+            />
+
+            <button type="submit" 
+            className="bg-black text-white rounded px-4 py-2">
                 Search
             </button>
         </form>
