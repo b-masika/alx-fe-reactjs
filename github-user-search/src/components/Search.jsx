@@ -29,11 +29,11 @@ const Search = () => {
             setUsers(data.items);
         }
         if (!users || users.length === 0) {
-            setError("Looks like we can't find the user");
+            setError("Looks like we cant find the user");
         }
-        
+
     } catch (err) {
-      setError("Looks like we can't find the user");
+      setError("Looks like we cant find the user");
     } finally {
       setLoading(false);
     }
