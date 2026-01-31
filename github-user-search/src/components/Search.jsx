@@ -1,16 +1,15 @@
 import { useState } from "react";
-import { searchUsers } from "../services/githubService.js";
-import { fetchUserData } from "../services/githubService.js";
+import { searchUsers, fetchUserData } from "../services/githubService.js";
 
 const Search = () => {
-  const [users, setUsers] = useState(null);
-  const [error, setError] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState("");
   const [minRepos, setMinRepos] = useState("");
   const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
   const [username, setUsername] = useState("");
+
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -18,18 +17,21 @@ const Search = () => {
     setLoading(true);
     setError("");
     setUsers([]);
-    setPage(1);
 
     try {
+        let results = [];
+
         if (username) {
             const userData = await fetchUserData(username);
-            setUsers([userData]);
+            results = [userData];
         } else {
-            const data = await searchUsers({query, location, minRepos, page: 1});
-            setUsers(data.items);
+            results = await searchUsers({query, location, minRepos, page: 1});
         }
-        if (!users || users.length === 0) {
+
+        if (!results || results.length === 0) {
             setError("Looks like we cant find the user");
+        } else {
+            setUsers(results);
         }
 
     } catch (err) {
