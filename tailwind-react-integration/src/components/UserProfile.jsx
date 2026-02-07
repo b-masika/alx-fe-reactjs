@@ -28,7 +28,7 @@ function UserProfile() {
             text-lg sm:text-lg md:text-xl
             text-blue-800 
             my-4
-            hover:text-blue-600
+            hover:text-blue-500
             transition-colors duration-300
             "
         >
