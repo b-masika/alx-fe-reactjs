@@ -1,19 +1,24 @@
 import React, { use, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AddRecipeForm = () => {
   const [title, setTitle] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [instructions, setInstructions] = useState('');
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const newErrors = {}; {};
+  const validate = () => {
+    const newErrors = {};
     if (!title.trim()) newErrors.title = 'Title is required';
     if (!ingredients.trim() || ingredients.split("\n").length < 2) newErrors.ingredients = 'Please enter at least 2 ingredients, each on a new line';
     if (!instructions.trim() || instructions.split("\n").length < 1) newErrors.instructions = 'Please enter preparation steps';
+    return newErrors;
+  };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newErrors = validate();
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
@@ -28,6 +33,8 @@ const AddRecipeForm = () => {
         setIngredients('');
         setInstructions('');
         alert('Recipe added successfully!');
+
+        navigate('/');
     }
     };
 
