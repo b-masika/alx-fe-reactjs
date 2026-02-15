@@ -40,10 +40,10 @@ const AddRecipeForm = () => {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold text-center mb-8">Add a New Recipe</h1>
+            <h1 className="text-3xl md:text-3xl font-bold text-center mb-6 md:mb-8">Add a New Recipe</h1>
             <form 
                 onSubmit={handleSubmit} 
-                className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow"
+                className="bg-white shadow-lg rounded-lg p-4 md:p-6 max-w-2xl mx-auto"
             >
                 {/* Title */}
                 <div className="mb-4">
@@ -68,7 +68,7 @@ const AddRecipeForm = () => {
                         value={ingredients}
                         onChange={(e) => setIngredients(e.target.value)}
                         rows="5"
-                        className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full border border-gray-300 rounded px-3 py-2 md:px-4 md:py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     {errors.ingredients && <p className="text-red-500 text-sm mt-1">{errors.ingredients}</p>}
                 </div>
@@ -82,14 +82,14 @@ const AddRecipeForm = () => {
                         value={instructions}
                         onChange={(e) => setInstructions(e.target.value)}
                         rows="5"
-                        className="w-full border border-gray-300 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full border border-gray-300 rounded px-3 py-2 md:px-4 md:py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                     {errors.instructions && <p className="text-red-500 text-sm mt-1">{errors.instructions}</p>}
                 </div>
 
                 <button
                     type="submit"
-                    className="w-full bg-blue-500 text-white font-semibold px-6py-2 rounded hover:bg-blue-600 transition-colors duration-300"
+                    className="bg-blue-500 text-white font-semibold px-6 py-2 md:px-8 md:py-3 rounded hover:bg-blue-600 transition-colors"
                 >
                     Add Recipe
                 </button>
