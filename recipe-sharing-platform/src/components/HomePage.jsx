@@ -14,6 +14,12 @@ const HomePage = () => {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-center mb-8">Welcome to the Recipe Sharing Platform</h1>
 
+        <div className="mb-6 text-center">
+            <Link to="/add-recipe" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-2 rounded transition-colors duration-300">
+                Add New Recipe
+            </Link>
+        </div>
+
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {recipes.map((recipe) => (
                 // Link to the recipe detail page
