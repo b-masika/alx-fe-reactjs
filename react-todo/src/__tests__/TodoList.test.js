@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import TodoList from '../components/TodoList';
 
@@ -13,7 +13,7 @@ describe('TodoList Component', () => {
   test('adds a new todo', () => {
     render(<TodoList />);
     const input = screen.getByPlaceholderText('Add a new todo');
-    const addButton = screen.getByRole('button', { name: 'Add' });
+    const addButton = screen.getByRole('button', { name: 'Add Todo' });
 
     fireEvent.change(input, { target: { value: 'New Todo' } });
     fireEvent.click(addButton);
@@ -24,7 +24,7 @@ describe('TodoList Component', () => {
     test('toggles a todo', () => {
         render(<TodoList />)
         const todoItem = screen.getByText('Learn React').closest('li');
-        const completeButton = todoItem.querySelector('button');
+        const completeButton = within(todoItem).getByText('Complete');
         
         fireEvent.click(completeButton); // Click the complete button
         expect(todoItem).toHaveStyle('text-decoration: line-through');
@@ -36,7 +36,7 @@ describe('TodoList Component', () => {
     test('deletes a todo', () => {
         render(<TodoList />);
         const todoItem = screen.getByText('Learn React').closest('li');
-        const deleteButton = todoItem.querySelectorAll('button')[1]; // Get the delete button
+        const deleteButton = within(todoItem).getByText('Delete');
 
         fireEvent.click(deleteButton);
 

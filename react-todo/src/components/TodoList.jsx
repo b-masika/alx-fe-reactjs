@@ -41,15 +41,13 @@ const TodoList = () => {
                     onChange={(e) => setInputValue(e.target.value)}
                     placeholder="Add a new todo"
                 />
-                <button type="submit">Add</button>
+                <button type="submit">Add Todo</button>
             </form>
             <ul>
                 {todos.map((todo) => (
                     <li key={todo.id} style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
                         {todo.text}
-                        <button onClick={() => toggleTodo(todo.id)}>
-                            {todo.completed ? 'Undo' : 'Complete'}
-                        </button>
+                        <button onClick={() => toggleTodo(todo.id)}>Complete</button>
                         <button onClick={() => deleteTodo(todo.id)}>Delete</button>
                     </li>
                 ))}
