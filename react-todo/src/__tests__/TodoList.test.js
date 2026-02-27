@@ -1,3 +1,4 @@
+/** @jest-environment jsdom */
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -19,7 +20,7 @@ describe('TodoList Component', () => {
     fireEvent.click(addButton);
 
     expect(screen.getByText('New Task')).toBeInTheDocument();
-    });
+  });
 
     test('toggles a todo', () => {
         render(<TodoList />)
