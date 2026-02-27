@@ -5,7 +5,8 @@ import '@testing-library/jest-dom';
 import TodoList from '../components/TodoList';
 
 describe('TodoList Component', () => {
-  test('renders initial todos', () => {
+
+  test('renders TodoList and initial todos', () => {
     render(<TodoList />);
     expect(screen.getByText('Learn React')).toBeInTheDocument();
     expect(screen.getByText('Build Todo App')).toBeInTheDocument();
@@ -24,23 +25,23 @@ describe('TodoList Component', () => {
 
     test('toggles a todo', () => {
         render(<TodoList />)
-        const todoItem = screen.getByText('Learn React').closest('li');
-        const completeButton = todoItem.querySelectorAll('button')[0];
-        
-        
-        fireEvent.click(completeButton);
-        expect(todoItem).toHaveStyle('text-decoration: line-through');
+        const todoItem = screen.getByText('Learn React');
 
-        fireEvent.click(completeButton);
+        fireEvent.click(todoItem);
+        expect(todoItem).toHaveStyle('text-decoration: line-through');
+        
+        fireEvent.click(todoItem);
         expect(todoItem).toHaveStyle('text-decoration: none');
+
     });
 
     test('deletes a todo', () => {
         render(<TodoList />);
         const todoItem = screen.getByText('Learn React').closest('li');
-        const deleteButton = todoItem.querySelectorAll('button')[1];
+        const deleteButton = todoItem.querySelectorAll('button')[0];
 
         fireEvent.click(deleteButton);
+        
         expect(screen.queryByText('Learn React')).not.toBeInTheDocument();
     });
 });

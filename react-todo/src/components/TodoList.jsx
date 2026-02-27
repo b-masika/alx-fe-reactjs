@@ -21,13 +21,13 @@ const TodoList = () => {
   };
 
   const toggleTodo = (id) => {
-    setTodos(todos.map(todo =>
+    setTodos(todos.map((todo)=>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     ));
   };
 
   const deleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id));
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   return (
@@ -43,12 +43,12 @@ const TodoList = () => {
         <button type="submit">Add Todo</button>
       </form>
       <ul>
-        {todos.map(todo => (
-          <li 
-          key={todo.id}
-          style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
+        {todos.map((todo) => (
+          <li key={todo.id}>
+            <span onClick={() => toggleTodo(todo.id)}
+              style={{ textDecoration: todo.completed ? 'line-through' : 'none', cursor : 'pointer', }}>
             {todo.text}
-            <button onClick={() => toggleTodo(todo.id)}>Complete</button>
+            </span>
             <button onClick={() => deleteTodo(todo.id)}>Delete</button>
           </li>
         ))}
