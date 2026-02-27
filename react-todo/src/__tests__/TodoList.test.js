@@ -13,7 +13,7 @@ describe('TodoList Component', () => {
   test('adds a new todo', () => {
     render(<TodoList />);
     const input = screen.getByPlaceholderText('Add a new todo');
-    const addButton = screen.getByText('Add');
+    const addButton = screen.getByRole('button', { name: 'Add' });
 
     fireEvent.change(input, { target: { value: 'New Todo' } });
     fireEvent.click(addButton);
@@ -23,11 +23,10 @@ describe('TodoList Component', () => {
 
     test('toggles a todo', () => {
         render(<TodoList />)
-        const todoItem = screen.getByText('Learn React');
-        const completeButton = screen.getAllByText('Complete')[0];
+        const todoItem = screen.getByText('Learn React').closest('li');
+        const completeButton = todoItem.querySelector('button');
         
         fireEvent.click(completeButton); // Click the complete button
-
         expect(todoItem).toHaveStyle('text-decoration: line-through');
 
         fireEvent.click(completeButton); // Click the toggle button again
@@ -36,10 +35,11 @@ describe('TodoList Component', () => {
 
     test('deletes a todo', () => {
         render(<TodoList />);
-        const todoItem = screen.getByText('Learn React');
-        const deleteButton = screen.getAllByText('Delete');
+        const todoItem = screen.getByText('Learn React').closest('li');
+        const deleteButton = todoItem.querySelectorAll('button')[1]; // Get the delete button
 
-        fireEvent.click(deleteButton[0]);
-        expect(todoItem).not.toBeInTheDocument();
+        fireEvent.click(deleteButton);
+
+        expect(screen.queryByText('Learn React')).not.toBeInTheDocument();
     });
 });
