@@ -8,7 +8,7 @@ const TodoList = () => {
 
   const [inputValue, setInputValue] = useState('');
 
-  const AddTodo = (e) => {
+  const addTodo = (e) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
     const newTodo = { 
@@ -33,7 +33,7 @@ const TodoList = () => {
   return (
     <div>
       <h1>Todo List</h1>
-      <form onSubmit={AddTodo}>
+      <form onSubmit={addTodo}>
         <input
           type="text"
           value={inputValue}
