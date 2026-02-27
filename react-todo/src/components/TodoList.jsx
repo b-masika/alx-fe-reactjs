@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import AddTodoForm from './AddTodoForm';
 
 const TodoList = () => {
   const [todos, setTodos] = useState([
@@ -7,9 +6,18 @@ const TodoList = () => {
     { id: 2, text: 'Build Todo App', completed: false },
   ]);
 
-  const handleAddTodo = (text) => {
-    const newTodo = { id: Date.now(), text, completed: false };
+  const [inputValue, setInputValue] = useState('');
+
+  const AddTodo = (e) => {
+    e.preventDefault();
+    if (!inputValue.trim()) return;
+    const newTodo = { 
+        id: Date.now(), 
+        text: inputValue, 
+        completed: false 
+    };
     setTodos([...todos, newTodo]);
+    setInputValue('');
   };
 
   const toggleTodo = (id) => {
@@ -25,16 +33,22 @@ const TodoList = () => {
   return (
     <div>
       <h1>Todo List</h1>
-      <AddTodoForm addTodo={handleAddTodo} />
+      <form onSubmit={AddTodo}>
+        <input
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="Add a new todo"
+        />
+        <button type="submit">Add Todo</button>
+      </form>
       <ul>
         {todos.map(todo => (
-          <li key={todo.id}>
-            <span
-              onClick={() => toggleTodo(todo.id)}
-              style={{ textDecoration: todo.completed ? 'line-through' : 'none', cursor: 'pointer' }}
-            >
-              {todo.text}
-            </span>
+          <li 
+          key={todo.id}
+          style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
+            {todo.text}
+            <button onClick={() => toggleTodo(todo.id)}>Complete</button>
             <button onClick={() => deleteTodo(todo.id)}>Delete</button>
           </li>
         ))}
